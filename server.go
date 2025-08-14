@@ -380,6 +380,10 @@ func (s *Server) eventLoop() {
 		select {
 		case <-s.done:
 			s.loop.sysTopics.Stop()
+			s.loop.clientExpiry.Stop()
+			s.loop.inflightExpiry.Stop()
+			s.loop.retainedExpiry.Stop()
+			s.loop.willDelaySend.Stop()
 			return
 		case <-s.loop.sysTopics.C:
 			s.publishSysTopics()
